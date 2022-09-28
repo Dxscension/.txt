@@ -42,7 +42,12 @@ ALL.Size = UDim2.new(0, 481, 0, 567)
 if syn then
 	syn.protect_gui(Bracket)
 else
-	Bracket.Parent = gethui()
+	if gethui then
+		Bracket.Parent = gethui()
+	else
+		Bracket.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+	end
 end
 GUI.Name = "GUI"
 GUI.Parent = ALL
@@ -330,7 +335,7 @@ function library:CreateWindow(text)
 	SIDESHOLDER.TopImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
 	SIDESHOLDER.Visible = false
 	SIDESHOLDER.ClipsDescendants = true
-	
+
 	_1.Name = "1"
 	_1.Parent = SIDESHOLDER
 	_1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -345,7 +350,7 @@ function library:CreateWindow(text)
 	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	UIListLayout.Padding = UDim.new(0, 13)
 	UIListLayout.Name = "LIST"
-	
+
 	local UIListLayout_3 = Instance.new("UIListLayout")
 	local _2 = Instance.new("Frame")
 	local UIListLayout_4 = Instance.new("UIListLayout")
@@ -399,7 +404,7 @@ function library:CreateWindow(text)
 	end)
 
 	TABBUTTON.Size = UDim2.new(0, finalsize, 0, 18)
-	
+
 	TABBUTTON.MouseButton1Click:Connect(function()
 		for i,v in pairs(TabHolderUpper:GetChildren()) do
 			if v:IsA('TextButton') and v ~= TABBUTTON then
@@ -416,7 +421,7 @@ function library:CreateWindow(text)
 		TweenService:Create(TABBUTTON, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()	
 		LINE:TweenSize(UDim2.new(0,finalsize,0,2),"Out","Quint",0.4,true)
 	end)
-	
+
 	function k:AddSection(text,side)
 		local u = {};
 
@@ -429,8 +434,8 @@ function library:CreateWindow(text)
 		local CORNY = Instance.new("UICorner")
 		local LINE_4 = Instance.new("Frame")
 		UIListLayout_2.Padding = UDim.new(0, 13)
-		
-		
+
+
 		LINE_4.Name = "LINE"
 		LINE_4.Parent = Section
 		LINE_4.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -489,7 +494,7 @@ function library:CreateWindow(text)
 		CORNY.CornerRadius = UDim.new(0, 5)
 		CORNY.Name = "CORNY"
 		CORNY.Parent = TITLESECION
-		
+
 		local function UpdateMainSize()
 			local LeftSize =  UIListLayout.AbsoluteContentSize.Y
 			local RightSize =  UIListLayout_4.AbsoluteContentSize.Y
@@ -499,11 +504,11 @@ function library:CreateWindow(text)
 				SIDESHOLDER.CanvasSize = UDim2.fromOffset(0, UIListLayout_4.AbsoluteContentSize.Y + 15)
 			end
 		end
-		
-		-- Gui to Lua
--- Version: 3.2
 
--- Instances:
+		-- Gui to Lua
+		-- Version: 3.2
+
+		-- Instances:
 
 
 		if side == 1 then
@@ -515,7 +520,7 @@ function library:CreateWindow(text)
 		function u:AddButton(text,action)
 			text = text or "Not Defined"
 			action = action or function() print('Not defined') end
-			
+
 			local TemplateButton = Instance.new("Frame")
 			local LINE_2 = Instance.new("Frame")
 			local UIGradient = Instance.new("UIGradient")
@@ -589,14 +594,14 @@ function library:CreateWindow(text)
 
 			end)
 		end
-		
+
 		function u:AddToggle(Text,Value,Action)
 			local p = {}
 			Text = Text or "Nil Toggle"
-			
-			
+
+
 			local val = Value or false;
-			
+
 			local TemplateToggle = Instance.new("Frame")
 			local TextLabel = Instance.new("TextLabel")
 			local Interactive = Instance.new("TextButton")
@@ -664,10 +669,10 @@ function library:CreateWindow(text)
 			Frame_3.Position = UDim2.new(0.5, 0, 0.5, 0)
 			Frame_3.Size = UDim2.new(1, 3, 1, 3)
 			Frame_3.ZIndex = 13
-			
+
 
 			local WAIT = true;
-			
+
 			if  val == false then
 				WAIT = false;
 				pcall(function()
@@ -683,7 +688,7 @@ function library:CreateWindow(text)
 				TweenService:Create(Frame, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {BackgroundColor3 = Color3.fromRGB(99, 255, 135)}):Play()
 				WAIT = true
 			end
-			
+
 			Interactive.MouseEnter:Connect(function()
 				TweenService:Create(Frame_2, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {BackgroundColor3 = Color3.fromRGB(80, 80, 80)}):Play()	
 
@@ -711,7 +716,7 @@ function library:CreateWindow(text)
 					WAIT = true
 				end
 			end)
-			
+
 			function p:ChangeValue(v)
 				val =  v
 				if val then
@@ -734,20 +739,20 @@ function library:CreateWindow(text)
 					WAIT = true
 				end
 			end
-			
+
 			local list = Section.Parent.LIST
 
 			Section.Size = UDim2.fromOffset(Section.AbsoluteSize.X,  UIListLayout_2.AbsoluteContentSize.Y + 14)
 			UpdateMainSize()
 			return p
 		end
-		
+
 		function u:AddDropdown(Text,tbl,sel,Action)
 			local s = '';
 			local K = false;
 			Text = Text or  'Notdefined'
 			if sel == nil then error('selectedd needs to be something invalid argument (3)') return  end
-			
+
 			local Templatedropdown = Instance.new("Frame")
 			local LINE = Instance.new("Frame")
 			local UIGradient = Instance.new("UIGradient")
@@ -757,7 +762,7 @@ function library:CreateWindow(text)
 			local UICorner = Instance.new("UICorner")
 			local UIListLayout = Instance.new("UIListLayout")
 			local GIRACOSA = Instance.new("TextLabel")
-	
+
 
 			local TextLabel = Instance.new("TextLabel")
 
@@ -789,7 +794,7 @@ function library:CreateWindow(text)
 			GIRACOSA.TextColor3 = Color3.fromRGB(255, 255, 255)
 			GIRACOSA.TextSize = 16.000
 			GIRACOSA.TextXAlignment = Enum.TextXAlignment.Right
-			
+
 
 			--Properties:
 
@@ -809,7 +814,7 @@ function library:CreateWindow(text)
 			LINE.Position = UDim2.new(0.5, 0, 0.5, 0)
 			LINE.Size = UDim2.new(1, 2, 1, 2)
 			LINE.ZIndex = 26
-			
+
 			Interactive.MouseEnter:Connect(function()
 				TweenService:Create(LINE, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {BackgroundColor3 = Color3.fromRGB(80, 80, 80)}):Play()	
 
@@ -818,7 +823,7 @@ function library:CreateWindow(text)
 				TweenService:Create(LINE, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {BackgroundColor3 = Color3.fromRGB(49, 49, 49)}):Play()	
 
 			end)
-			
+
 			UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(24, 24, 24)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(27, 27, 27))}
 			UIGradient.Rotation = 270
 			UIGradient.Parent = Templatedropdown
@@ -860,7 +865,7 @@ function library:CreateWindow(text)
 			UIListLayout.Parent = DRPDOWN
 			UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 			UIListLayout.Padding = UDim.new(0, 3)
-			
+
 			Interactive.MouseButton1Click:Connect(function()
 				if  K then
 					TweenService:Create(GIRACOSA , TweenInfo.new(0.26, Enum.EasingStyle.Quad , Enum.EasingDirection.Out), {Rotation = 180}):Play()	
@@ -882,7 +887,7 @@ function library:CreateWindow(text)
 				local optntext = Instance.new("TextLabel")
 				local OPTNION_3 = Instance.new("Frame")
 				local optInteractive = Instance.new("TextButton")
-				
+
 				option.Name = "option"
 				option.Parent = DRPDOWN
 				option.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -954,7 +959,7 @@ function library:CreateWindow(text)
 				optInteractive.MouseButton1Click:Connect(function()
 					for i,v in pairs(DRPDOWN:GetChildren()) do
 						if v.Name == 'option'  then
-							
+
 							TweenService:Create(v.txt , TweenInfo.new(0.26, Enum.EasingStyle.Quad , Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(255,255,255)}):Play()	
 						end	
 					end
@@ -973,7 +978,7 @@ function library:CreateWindow(text)
 			Section.Size = UDim2.fromOffset(Section.AbsoluteSize.X,  UIListLayout_2.AbsoluteContentSize.Y + 16)
 			UpdateMainSize()
 		end
-		
+
 		function u:AddIP(Text, Def, Action)
 
 
@@ -1010,7 +1015,7 @@ function library:CreateWindow(text)
 			local Head_2 = Instance.new("ImageButton")
 			local UIPadding = Instance.new("UIPadding")
 			local sdfh = Instance.new("UIPadding")
-			
+
 			local XXX = Def
 			local parts = {};
 			for i,v in pairs(BodyHitBox:GetChildren()) do
@@ -1035,8 +1040,8 @@ function library:CreateWindow(text)
 			ALL.Position = UDim2.new(1.02119613, 0, -0.00014989078, 0)
 			ALL.Size = UDim2.new(0, 199, 0, 276)
 			ALL.Visible = false
-			
-			
+
+
 			Holder.Name = "Holder"
 			Holder.Parent = ALL
 			Holder.AnchorPoint = Vector2.new(0.5, 0)
@@ -1335,7 +1340,7 @@ function library:CreateWindow(text)
 			sdfh.PaddingLeft = UDim.new(0, 4)
 			sdfh.PaddingRight = UDim.new(0, 4)
 			sdfh.PaddingTop = UDim.new(0, 4)
-			
+
 			local function onUpdate(v)
 				for i,v in pairs(BodyHitBox:GetChildren()) do
 					v.Visible = true
@@ -1435,7 +1440,7 @@ function library:CreateWindow(text)
 				onUpdate(true)
 
 			end)
-			
+
 
 
 			local Templatedropdown = Instance.new("Frame")
@@ -1499,7 +1504,7 @@ function library:CreateWindow(text)
 			Interactive.Text = ""
 			Interactive.TextColor3 = Color3.fromRGB(0, 0, 0)
 			Interactive.TextSize = 20.000
-			
+
 			UpdateMainSize()
 			AddRipple(Interactive)
 			onUpdate()
@@ -1513,7 +1518,7 @@ function library:CreateWindow(text)
 			Section.Size = UDim2.fromOffset(Section.AbsoluteSize.X,  UIListLayout_2.AbsoluteContentSize.Y + 16)
 
 		end
-		
+
 		function u:AddKeybind(Text, KeyCode, Action)
 			Text=Text or ". . ."
 			Action=Action or function() end
@@ -1585,7 +1590,7 @@ function library:CreateWindow(text)
 			Interactive.Text = KeyCode.Name
 			Interactive.TextColor3 = Color3.fromRGB(255, 255, 255)
 			Interactive.TextSize = 14.000
-			
+
 			Interactive.MouseEnter:Connect(function()
 				TweenService:Create(Frame_2, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {BackgroundColor3 = Color3.fromRGB(80, 80, 80)}):Play()	
 
@@ -1593,7 +1598,7 @@ function library:CreateWindow(text)
 			Interactive.MouseLeave:Connect(function()
 				TweenService:Create(Frame_2, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {BackgroundColor3 = Color3.fromRGB(49, 49, 49)}):Play()	
 			end)
-			
+
 			local ka = false
 			game:GetService("UserInputService").InputBegan:connect(function(a, gp) 
 				if not gp then 
@@ -1643,17 +1648,17 @@ function library:CreateWindow(text)
 			Section.Size = UDim2.fromOffset(Section.AbsoluteSize.X,  UIListLayout_2.AbsoluteContentSize.Y + 16)
 			UpdateMainSize()
 		end
-		
+
 		function u:AddSlider(Text, Min , Max, Selected ,Action) 
 
 			Text = Text or "Nil Slider"
 			Action = Action or function() end
 			Min = Min or 0;
 			Max = Max or 100;
-			
+
 			local SliderDef = math.clamp(Selected, Min, Max) or math.clamp(4, Min, Max)
 			local DefaultScale =  (SliderDef - Min) / (Max - Min)
-			
+
 			local Value;
 			local mouse = game:GetService('Players').LocalPlayer:GetMouse()
 			local TemplateSlider = Instance.new("Frame")
@@ -1760,7 +1765,7 @@ function library:CreateWindow(text)
 			SFrame.Size = UDim2.new(0, 0, 0, 4)
 			SFrame.ZIndex = 20
 			SFrame.BorderSizePixel = 0
-			
+
 			UIListLayout.Parent = TemplateSlider
 			UIListLayout.SortOrder = Enum.SortOrder.Name
 			UIListLayout.Padding = UDim.new(0, 5)
@@ -1776,7 +1781,7 @@ function library:CreateWindow(text)
 			SFrame.Size = UDim2.fromScale(DefaultScale,1)
 			SFrame.Size = UDim2.new(SFrame.Size.X.Scale,0,0,4)
 
-			
+
 			sbt.MouseButton1Down:Connect(function()
 				Value = math.floor((((tonumber(Max) - tonumber(Min)) / 189) * SFrame.AbsoluteSize.X) + tonumber(Min)) or 0
 				TweenService:Create(TextLabel, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
@@ -1819,10 +1824,9 @@ function library:CreateWindow(text)
 			Section.Size = UDim2.fromOffset(Section.AbsoluteSize.X,  UIListLayout_2.AbsoluteContentSize.Y + 16)
 			UpdateMainSize()
 		end
-		
+
 		return u
 	end
 	return k
 end
-
 
